@@ -100,6 +100,10 @@ class HKExpressResponseValue extends Value
         $this->status = $status;
     }
 
+    public function getAirline(){
+        return 'hkexpress';
+    }
+
     protected $departureStation;
 
     protected $amount;

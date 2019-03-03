@@ -20,7 +20,7 @@ class CreateFlightsTask extends Task
         $this->repository = $repository;
     }
 
-    public function run(HKExpressResponseValue $hkexpressResponseValue)
+    public function run(HKExpressResponseValue $hkexpressResponseValue,$airline)
     {
         try {
             return $this->repository->create([
@@ -29,6 +29,7 @@ class CreateFlightsTask extends Task
                 'amount' => $hkexpressResponseValue->getAmount(),
                 'status' => $hkexpressResponseValue->getStatus(),
                 'flight_date' => Carbon::parse($hkexpressResponseValue->getDate()),
+                'airline' => $hkexpressResponseValue->getAirline(),
             ]);
         }
         catch (Exception $exception) {

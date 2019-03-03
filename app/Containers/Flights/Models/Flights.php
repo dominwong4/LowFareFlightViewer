@@ -13,7 +13,8 @@ class Flights extends Model
         'arrival_station',
         'amount',
         'status',
-        'flight_date'
+        'flight_date',
+        'airline'
 
     ];
 
@@ -48,7 +49,7 @@ class Flights extends Model
     }
 
     public function scopeTodayPrices($query){
-        return $query->where('created_at','>',Carbon::now('Asia/Hong_Kong')->startOfDay());
+        return $query->where('created_at','>',Carbon::now('Asia/Hong_Kong')->startOfDay()->setTimezone('UTC'));
     }
 
     public function scopeStatus($query,$status){

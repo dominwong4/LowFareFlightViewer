@@ -6,8 +6,10 @@ use App\Containers\Flights\UI\API\Requests\CreateFlightsRequest;
 use App\Containers\Flights\UI\API\Requests\DeleteFlightsRequest;
 use App\Containers\Flights\UI\API\Requests\GetAllFlightsRequest;
 use App\Containers\Flights\UI\API\Requests\FindFlightsByIdRequest;
+use App\Containers\Flights\UI\API\Requests\SuggestedRouteRequest;
 use App\Containers\Flights\UI\API\Requests\UpdateFlightsRequest;
 use App\Containers\Flights\UI\API\Transformers\FlightsTransformer;
+use App\Containers\Flights\UI\API\Transformers\SuggestedRouteTransformer;
 use App\Ship\Parents\Controllers\ApiController;
 use Apiato\Core\Foundation\Facades\Apiato;
 
@@ -71,5 +73,12 @@ class Controller extends ApiController
         Apiato::call('Flights@DeleteFlightsAction', [$request]);
 
         return $this->noContent();
+    }
+
+    public function suggestedRoute(SuggestedRouteRequest $request)
+    {
+        $suggestedFlights = Apiato::call('HKExpress@GetSuggestRouteAction',[$request->input('location'),$request->input('limit')]);
+
+        return $this->transform($suggestedFlights,SuggestedRouteTransformer::class);
     }
 }

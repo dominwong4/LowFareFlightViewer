@@ -20,10 +20,10 @@ class TriggerHKExpressFetchAction extends Action
     private $arrivalStation;
 
     private $delay = 0;
-    public function run()
+    public function run($country_id)
     {
         $this->departureStation = "HKG";
-        Country::find(5)->locations->each(function($location,$key){
+        Country::find($country_id)->locations->each(function($location,$key){
             $this->arrivalStation = $location->code;
             $this->startDate = Carbon::parse(Carbon::now()->setTimezone('Asia/Hong_Kong'))->format('Y-m-d');
             /** @var Carbon $endDate */
