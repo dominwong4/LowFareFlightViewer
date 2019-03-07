@@ -10,6 +10,7 @@ namespace App\Containers\HKExpress\Value;
 
 
 use App\Ship\Parents\Values\Value;
+use Carbon\Carbon;
 
 class RouteListItem extends Value
 {
@@ -22,6 +23,9 @@ class RouteListItem extends Value
      */
     public function getFrom()
     {
+        usort($this->from, function($a, $b) {
+            return $a->flight_date <=> $b->flight_date;
+        });
         return $this->from;
     }
 
@@ -38,6 +42,9 @@ class RouteListItem extends Value
      */
     public function getTo()
     {
+        usort($this->to, function($a, $b) {
+            return $a->flight_date <=> $b->flight_date;
+        });
         return $this->to;
     }
 
@@ -56,5 +63,9 @@ class RouteListItem extends Value
         ];
 
         return $array;
+    }
+
+    function sortByDate($a, $b) {
+        return Carbon::parse($a->flight_date) - Carbon::parse($a->flight_date);
     }
 }

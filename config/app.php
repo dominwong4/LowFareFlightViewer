@@ -154,7 +154,8 @@ return [
          * NOTE: all packages service providers must be registered inside their container's main service providers.
          */
         Apiato\Core\Providers\ApiatoProvider::class,
-        \Laravel\Horizon\HorizonServiceProvider::class
+        \Laravel\Horizon\HorizonServiceProvider::class,
+        App\Providers\FacebookServiceProvider::class,
     ],
 
     /*
